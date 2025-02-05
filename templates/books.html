@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Books in {{ section.sec_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+    <h1 class="text-center"><strong>Manage Books in {{ section.sec_name }}</strong></h1>
+    <hr>
+    
+    <!-- Display Books in Section -->
+    <div class="card-section">
+        {% for book in books %}
+        <div class="book-card">
+            <img src="{{ url_for('static', filename='images/' + book.book_image) }}" class="card-img-top" alt="{{ book.title }}" style="height: 150px; object-fit: cover;">
+            <div>
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">{{ book.author }}</p>
+                <p><strong>${{ book.price }}</strong></p>
+            </div>
+            <div>
+                <a href="{{ url_for('edit_book', book_id=book.book_id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_book', book_id=book.book_id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Form to Add or Edit Book -->
+    <div class="form-card">
+        <h3>{{ 'Edit Book' if book else 'Add Book' }}</h3>
+        <form action="{{ url_for('add_book') if not book else url_for('edit_book', book_id=book.book_id) }}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="sec_id" value="{{ section.sec_id }}">
+            <div class="form-group">
+                <label for="book_title">Book Title:</label>
+                <input type="text" class="form-control" id="book_title" name="book_title" value="{{ book.title if book else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="book_author">Author:</label>
+                <input type="text" class="form-control" id="book_author" name="book_author" value="{{ book.author if book else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="book_description">Description:</label>
+                <textarea class="form-control" id="book_description" name="book_description" rows="3" required>{{ book.description if book else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="book_price">Price:</label>
+                <input type="number" class="form-control" id="book_price" name="book_price" value="{{ book.price if book else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="book_image">Upload Book Image:</label>
+                <input type="file" class="form-control-file" id="book_image" name="book_image" accept="image/*" {{ 'required' if not book }}>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ 'Update Book' if book else 'Add Book' }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

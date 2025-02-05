@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('my_books') }}" class="btn btn-primary my-books-btn">My Books</a>
+    <h1 class="text-center">Available Sections</h1>
+    
+    <div class="card-section">
+        {% for section in sections %}
+        <div class="section-card">
+            <img src="{{ url_for('static', filename='images/' + section.sec_image) }}" alt="{{ section.sec_name }}" class="img-fluid" style="height: 150px; object-fit: cover;">
+            <h4>{{ section.sec_name }}</h4>
+            <p>{{ section.description }}</p>
+            <a href="{{ url_for('see_books', sec_id=section.sec_id) }}" class="btn btn-primary btn-sm">View Books</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

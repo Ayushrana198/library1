@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Sections{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center"><strong>Manage Sections</strong></h1>
+    <hr>
+    
+    <div class="text-right mb-3">
+        <a href="{{ url_for('book_issue') }}" class="btn btn-primary">Manage Issued Books</a>
+    </div>
+
+    <!-- Display Sections -->
+    <div class="card-section">
+        {% for section in sections %}
+        <div class="section-card">
+            <img src="{{ url_for('static', filename='images/' + section.sec_image) }}" class="card-img-top" alt="{{ section.sec_name }}" style="height: 200px; object-fit: cover;">
+            <div>
+                <h5 class="card-title">{{ section.sec_name }}</h5>
+                <p class="card-text">{{ section.description }}</p>
+            </div>
+            <div>
+                <a href="/section/{{ section.sec_id }}" class="btn btn-primary btn-sm">View Books</a>
+                <a href="{{ url_for('edit_section', sec_id=section.sec_id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_section', sec_id=section.sec_id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Add or Edit Section Form -->
+    <div class="form-card">
+        <h3>{{ 'Edit Section' if section_to_edit else 'Add Section' }}</h3>
+        <form action="{{ url_for('add_section') if not section_to_edit else url_for('edit_section', sec_id=section_to_edit.sec_id) }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="sec_name">Section Name:</label>
+                <input type="text" class="form-control" id="sec_name" name="sec_name" value="{{ section_to_edit.sec_name if section_to_edit else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="sec_description">Description:</label>
+                <textarea class="form-control" id="sec_description" name="sec_description" rows="3" required>{{ section_to_edit.description if section_to_edit else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="sec_image">Upload Section Image:</label>
+                <input type="file" class="form-control-file" id="sec_image" name="sec_image" accept="image/*" {{ 'required' if not section_to_edit }}>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ 'Update Section' if section_to_edit else 'Add Section' }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

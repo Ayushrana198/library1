@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Books in {{ section.sec_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Go Back and My Books buttons -->
+    <div class="d-flex justify-content-start mb-3">
+        <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+        <a href="{{ url_for('my_books') }}" class="btn btn-primary my-books-btn">My Books</a>
+    </div>
+    
+    <!-- Page Title -->
+    <h1 class="text-center">Books in {{ section.sec_name }}</h1>
+    
+    <!-- Display Books in Cards -->
+    <div class="card-section">
+        {% for book in books %}
+        <div class="book-card">
+            <img src="{{ url_for('static', filename='images/' + book.book_image) }}" alt="{{ book.title }}" class="img-fluid" style="height: 150px; object-fit: cover;">
+            <h4>{{ book.title }}</h4>
+            <p>By: {{ book.author }}</p>
+            <p><strong>Price: ${{ book.price }}</strong></p>
+            
+            <!-- Display Request Button if not already requested -->
+            {% if not book_already_requested(book.book_id) %}
+                <form action="{{ url_for('request_book', book_id=book.book_id) }}" method="POST">
+                    <button type="submit" class="btn btn-success btn-sm">Request Book</button>
+                </form>
+            {% else %}
+                <p class="text-muted">Already requested or limit reached</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

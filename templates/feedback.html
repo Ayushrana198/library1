@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}All Feedbacks{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+    <h1 class="text-center">Feedback for All Books</h1>
+    
+    <!-- Display feedback grouped by book -->
+    <div class="feedback-section">
+        {% for book, book_feedbacks in feedbacks.items() %}
+        <div class="book-feedback-card">
+            <h4 class="book-title">{{ book.title }}</h4>
+            <!-- Loop through feedbacks for the current book -->
+            {% for feedback in book_feedbacks %}
+            <div class="feedback-item">
+                <p><strong>Feedback by:</strong> {{ feedback.user.username }}</p>
+                <p>{{ feedback.feedback }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Issued Books{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+    <h1 class="text-center">Issued Books</h1>
+
+    <!-- Button to view all feedbacks for all books -->
+    <a href="{{ url_for('view_all_feedback') }}" class="btn btn-info mb-3">View All Feedbacks</a>
+
+    <!-- Display all books issued to students -->
+    <div class="card-section">
+        {% for issued_book in issued_books %}
+        <div class="book-card">
+            <h4>{{ issued_book.book.title }}</h4>
+            <p>Issued to: {{ issued_book.user.username }}</p>
+            <p>Issue Date: {{ issued_book.request_date.strftime('%Y-%m-%d') }}</p>
+            <p class="time-left">Time left to return: {{ issued_book.expiry_date - current_time }}</p>
+
+            <!-- Revoke book button -->
+            <form action="{{ url_for('revoke_book', book_id=issued_book.book.book_id, user_id=issued_book.user.user_id) }}" method="POST">
+                <button type="submit" class="btn btn-danger">Revoke Book</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

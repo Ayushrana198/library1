@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+    <h1 class="text-center">My Requested Books</h1>
+    <div class="card-section">
+        {% for request in requests %}
+        <div class="book-card">
+            <img src="{{ url_for('static', filename='images/' + request.book.book_image) }}" alt="{{ request.book.title }}" class="img-fluid" style="height: 150px; object-fit: cover;">
+            <h4>{{ request.book.title }}</h4>
+            <p>By: {{ request.book.author }}</p>
+            <p>Requested On: {{ request.request_date.strftime('%Y-%m-%d') }}</p>
+            <form action="{{ url_for('return_book', req_id=request.req_id) }}" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm">Return</button>
+                <a href="{{ url_for('read_book', book_id=request.book.book_id) }}" class="btn btn-info btn-sm">Read</a>
+            </form>
+            <!-- Download PDF Button -->
+            <a href="{{ url_for('download_book_pdf', book_id=request.book.book_id) }}" class="btn btn-success btn-sm mt-2">Download PDF</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

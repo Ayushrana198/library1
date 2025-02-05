@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Library App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/welcome.jpeg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#"><strong>My Library</strong></a>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('privacy_policy') }}">Privacy and Policy</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Block for specific page content -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

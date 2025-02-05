@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - Read Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/' + book.book_image) }}');
+            
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .book-container {
+            
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, p {
+            text-align: justify;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #3e2723;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 18px;
+            border: 2px solid #3e2723;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly white background for text readability */
+        }
+
+        .feedback-section {
+            margin-top: 50px;
+        }
+
+        .time-left {
+            font-size: 16px;
+            color: #d32f2f;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .btn-feedback {
+            background-color: #795548;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="book-container">
+    <button class="btn btn-secondary back-btn" onclick="history.back()">← Go Back</button>
+    <!-- Show how much time is left for the return at the top -->
+    <div class="time-left">
+        <b>Time left to return: {{ time_left.days }} days</b>
+    </div>
+
+    <!-- Book Title and Author -->
+    <h1><b>{{ book.title }}</b></h1>
+    <h2><b>by {{ book.author }}</b></h2>
+
+    <!-- Book Description -->
+    <p>{{ book.description }}</p>
+
+    <!-- Feedback Form -->
+    <div class="feedback-section">
+        <h3><b>Submit Your Feedback</b></h3>
+        <form action="/submit_feedback/{{ book.book_id }}" method="POST">
+            <div class="form-group">
+                <textarea class="form-control" name="feedback" rows="4" placeholder="Write your feedback here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-feedback">Submit Feedback</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
