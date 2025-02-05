@@ -1,4 +1,4 @@
-**Library Management System**
+********Library Management System********
 
 **Overview**
 
@@ -6,15 +6,15 @@ The Library Management System is a web-based application built using Flask, HTML
 
 **Technologies Used**
 
-Backend: Python (Flask) 
+  1) Backend: Python (Flask) 
 
-Frontend: HTML, CSS
+  2) Frontend: HTML, CSS
 
-Database: SQLite/MySQL 
+  3) Database: SQLite/MySQL 
 
-Virtual Environment: venv
+  4) Virtual Environment: venv
 
-**Features**
+****Features****
 
 **Admin Panel:**
 
@@ -38,7 +38,7 @@ Virtual Environment: venv
 
 4) Read and download books and give feedback.
 
-**Installation & Setup**
+****Installation & Setup****
 
 1. Clone the Repository
 
@@ -71,13 +71,13 @@ Virtual Environment: venv
 
 **Contribution**
 
-If you’d like to contribute:
+    If you’d like to contribute:
 
-Fork the repository.
+       Fork the repository.
 
-Create a new branch.
+       Create a new branch.
 
-Make your changes.
+       Make your changes.
 
-Submit a pull request.
+       Submit a pull request.
 
