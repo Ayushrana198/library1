@@ -42,32 +42,32 @@ Virtual Environment: venv
 
 1. Clone the Repository
 
-git clone https://github.com/Ayushrana198/library1.git
-cd library1
+   git clone https://github.com/Ayushrana198/library1.git
+   cd library1
 
 2. Create and Activate a Virtual Environment
 
-For Windows:
+   For Windows:
 
-python -m venv venv
-venv\Scripts\activate
+      python -m venv venv
+      venv\Scripts\activate
 
-For macOS/Linux:
+  For macOS/Linux:
 
-python3 -m venv venv
-source venv/bin/activate
+     python3 -m venv venv
+     source venv/bin/activate
 
 3. Install Dependencies
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 4. Run the Application
 
-python main.py
+    python main.py
 
 5. Access the Application
 
-Open your browser and go to http://127.0.0.1:5000/
+    Open your browser and go to http://127.0.0.1:5000/
 
 **Contribution**
 
